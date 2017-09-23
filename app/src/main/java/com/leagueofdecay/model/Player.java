@@ -1,16 +1,16 @@
-package model;
+package com.leagueofdecay.model;
 
 /**
  * Created by jasie on 14.09.2017.
  */
 
 public class Player {
-    long id;
-    long accountId;
-    String name;
-    int profileIconId;
-    int revicisonDate;
-    int summonerLevel;
+    private long id;
+    private long accountId;
+    private String name;
+    private int profileIconId;
+    private int revicisonDate;
+    private int summonerLevel;
 
     public long getId() {
         return id;

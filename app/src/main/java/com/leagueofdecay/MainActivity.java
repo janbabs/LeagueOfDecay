@@ -1,6 +1,7 @@
 package com.leagueofdecay;
 
-import android.content.Intent;
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,17 +12,14 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-
-import data.DecayHttpClient;
-import data.JSONDecayParser;
-import model.Match;
-import model.Player;
+import com.leagueofdecay.data.DecayHttpClient;
+import com.leagueofdecay.data.JSONDecayParser;
+import com.leagueofdecay.model.Player;
 
 public class MainActivity extends AppCompatActivity {
-    String apiKey = "?api_key=";
+    String apiKey = "?api_key=RGAPI-e0f5d3bd-c484-43f0-bc01-340e0f306fcd";
     //TODO Add apiKey implementation
-
+    //TODO ADD wrong summoner name or apikey handling
     private TextView decayInfo;
     private EditText summonerName;
     private Spinner server;
@@ -72,6 +70,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private class SummonerTask extends AsyncTask <String, Void, Integer> {
+        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog.setMessage("Fetching data");
+            progressDialog.setIndeterminate(false);
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+
+        }
+
         @Override
         protected Integer doInBackground(String... params) {
 
@@ -104,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Integer integer) {
+            if(progressDialog.isShowing())
+                progressDialog.dismiss();
             if (integer == -2) {
                 decayInfo.setText("Your lp wont decay");
                 return;
@@ -115,5 +127,4 @@ public class MainActivity extends AppCompatActivity {
                 decayInfo.setText(28 - integer + " days before decay starts.");
         }
     }
-
 }

@@ -1,11 +1,11 @@
-package data;
+package com.leagueofdecay.data;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import Utils.Utils;
-import model.Player;
+import com.leagueofdecay.Utils.Utils;
+import com.leagueofdecay.model.Player;
 
 /**
  * Created by jasie on 14.09.2017.

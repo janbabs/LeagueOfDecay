@@ -1,4 +1,4 @@
-package data;
+package com.leagueofdecay.data;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import Utils.Utils;
+import com.leagueofdecay.Utils.Utils;
 
 /**
  * Created by jasie on 14.09.2017.

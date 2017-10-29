@@ -1,9 +1,5 @@
 package com.leagueofdecay.model;
 
-/**
- * Created by jasie on 14.09.2017.
- */
-
 public class Player {
     private long id;
     private long accountId;

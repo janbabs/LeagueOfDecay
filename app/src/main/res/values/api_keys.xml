@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!--API KEY MUST NOT BE PUBLISH-->
+
+    <string name="LEAGUE_OF_LEGENDS_API_TOKEN"></string>
+</resources>

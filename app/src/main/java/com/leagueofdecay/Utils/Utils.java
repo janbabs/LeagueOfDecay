@@ -1,12 +1,12 @@
 package com.leagueofdecay.Utils;
 
+import com.leagueofdecay.data.DecayHttpClient;
+import com.leagueofdecay.data.JSONDecayParser;
+import com.leagueofdecay.model.Player;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-/**
- * Created by jasie on 14.09.2017.
- */
 
 public class Utils {
 
@@ -16,8 +16,7 @@ public class Utils {
     public static final String LeagueByIdURL = "api.riotgames.com/lol/league/v3/leagues/by-summoner/";
 
     public static JSONObject getObject(String tagName, JSONObject jsonObject) throws JSONException {
-        JSONObject jObj = jsonObject.getJSONObject(tagName);
-        return jObj;
+        return jsonObject.getJSONObject(tagName);
     }
 
     public static int getInt(String tagName, JSONObject jsonObject) throws  JSONException {
@@ -33,8 +32,20 @@ public class Utils {
     }
 
     public static JSONArray getArray(String tagname, JSONObject jsonObject) throws JSONException {
-        JSONArray jsonArray = jsonObject.getJSONArray(tagname);
-        return jsonArray;
+        return jsonObject.getJSONArray(tagname);
     }
-
+    public static int TimeDiff (String name, String server, String apikey ) {
+        String data = ((new DecayHttpClient()).getSummonerData(name, server, apikey));
+        if (data == null) {
+            return -1;
+        }
+        Player player = JSONDecayParser.getPlayer(data);
+        String league = JSONDecayParser.getLeague(new DecayHttpClient().getLeagueById(player.getId(), server, apikey));
+        league = league.toUpperCase();
+        if (!(league.equals("PLATINIUM") || league.equals("DIAMOND") || league.equals("MASTER") || league.equals("CHALLENGER"))) {
+            return -2;
+        }
+        Long matchId = JSONDecayParser.getMatchId((new DecayHttpClient()).getLastRankedMatchData(player.getAccountId(), server, apikey));
+        return JSONDecayParser.getTimeDiff((new DecayHttpClient()).getMatchDetailsById(matchId, server, apikey));
+    }
 }
